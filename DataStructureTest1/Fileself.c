@@ -62,50 +62,60 @@ void printLink( linkedList l ) {
 
 int main(int argc, char const *argv[])
 {
-	linkedList p = NULL,q = NULL,listToBeCreated = NULL;//linkedList与pqr是同等的事物所有没有星号,p是辅助查找的指针
+	linkedList p,q = NULL,listToBeCreated = NULL;//linkedList与pqr是同等的事物所有没有星号,p是辅助查找的指针
     listToBeCreated = (linkedList)malloc(sizeof(linkedList));
-    //listToBeCreated ->next = NULL;
+    listToBeCreated ->next = NULL;
     
     
     for (int i = 1; i <= lengthOfTheCreatingList ; i++)
     {
         p = (linkedList)malloc(sizeof(linkedList));//申请了一个元素所占的空间
         p->data = i;
-        
-//        if (i != lengthOfTheCreatingList-1)//不是要创建尾节点
-//        {
-//            q = (linkedList)malloc(sizeof(linkedList));
-//            listToBeCreated = (linkedList)malloc(sizeof(linkedList));
-//            listToBeCreated->data = p->data;
-//            p->next = NULL;
-//        }
-//        else if (i == lengthOfTheCreatingList)
-//        {
-//            listToBeCreated->next = NULL;
-//        }
-
-        
-        if ( !listToBeCreated->next )//list中的下一个节点未指定时
+        if (i != lengthOfTheCreatingList-1)//不是要创建尾节点
         {
-            
-            listToBeCreated->next = p;//居然只改变了next!
-            
+            q = (linkedList)malloc(sizeof(linkedList));
+            listToBeCreated = (linkedList)malloc(sizeof(linkedList));
+            listToBeCreated->data = p->data;
+            p->next = NULL;
+        }
+        else if (i == lengthOfTheCreatingList)
+        {
+            listToBeCreated->next = NULL;
         }
         
-        else {
-            
-            q->next = p;
-            
-        }
-
-        
-        q = p;//负责寻找的p移到下一个
+        p = p->next;//负责寻找的p移到下一个
         
     }
-
+    //    if ( !list->next ) {
+    //
+    //        list->next = p;	//赋值头节点用
+    //
+    //    }
+    //
+    //    else {
+    //
+    //        r->next = p;//赋值其他节点用
+    //
+    //    }
+    //
+    //    r = p;	//移动r指针,指向下一个节点
+    //
+    //}
     printLink(listToBeCreated);
     return 0;
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 

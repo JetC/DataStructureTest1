@@ -28,6 +28,8 @@
 		DF2C1D381844E458000D8E65 /* DataStructureTest1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DataStructureTest1; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF2C1D3B1844E458000D8E65 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		DF2C1D3D1844E458000D8E65 /* DataStructureTest1.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = DataStructureTest1.1; sourceTree = "<group>"; };
+		DFA70742184CCF860051A987 /* File.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = File.c; sourceTree = "<group>"; };
+		DFA70744184CCFD70051A987 /* Fileself.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Fileself.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,8 @@
 			children = (
 				DF2C1D3B1844E458000D8E65 /* main.c */,
 				DF2C1D3D1844E458000D8E65 /* DataStructureTest1.1 */,
+				DFA70742184CCF860051A987 /* File.c */,
+				DFA70744184CCFD70051A987 /* Fileself.c */,
 			);
 			path = DataStructureTest1;
 			sourceTree = "<group>";
@@ -225,6 +229,7 @@
 				DF2C1D431844E458000D8E65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
