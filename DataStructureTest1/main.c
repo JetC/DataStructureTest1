@@ -1,111 +1,47 @@
-//
-//  main.c
-//  DataStructureTest1
-//
-//  Created by 孙培峰 on 13-11-26.
-//  Copyright (c) 2013年 孙培峰. All rights reserved.
-//
-#define lengthOfTheCreatingList 8
-
 #include <stdio.h>
 #include <stdlib.h>
 
-
-//node为节点
 typedef struct LNode{
     int data;
     struct LNode *next;
-}LNode, *linkedList;//LNode只是对此类的代称,linkedList才是可运用的表
+}LNode;
 
-//linkedList createLinkedListWithoutHeader(lengthOfTheCreatingList)
-//{
-//    linkedList p,q,r,listToBeCreated = NULL;//linkedList与pqr是同等的事物所有没有星号,p是辅助查找的指针
-//    for (int i = 0; i < lengthOfTheCreatingList ; i++)
-//    {
-//        p = (linkedList)malloc(sizeof(linkedList));//申请了一个元素所占的空间
-//
-//        p->next = NULL;
-//        p->data = i;
-//        if (i != lengthOfTheCreatingList-1 && 0<= i <lengthOfTheCreatingList)//不是要创建尾节点
-//        {
-//            q = (linkedList)malloc(sizeof(linkedList));
-//            listToBeCreated->data = p->data
-//            listToBeCreated->next = q;
-//        }
-//        else if (i == lengthOfTheCreatingList-1)
-//        {
-//            listToBeCreated->next = NULL;
-//        }
-//    }
-//    return listToBeCreated;
-//
-//}
-void printLink( linkedList l ) {
+LNode initLinkedList(int lenthOfTheCreatingList)
+{
+    LNode *p = NULL, *q = NULL, *linkedList = NULL;
     
-    linkedList q;
-    
-    q = l->next;
-    
-    q = (linkedList)malloc(sizeof(linkedList));
-    while ( q->next != NULL ) {
+    for (int i=1; i <= lenthOfTheCreatingList; i++)
+    {
+        p = (LNode *)malloc(sizeof(LNode));
         
-        printf("%d ", q->data);
-        
-        q = q->next;
+
+        p->data = i;
+        p->next = NULL;
+        if (i == 1)
+        {
+            linkedList = (LNode *)malloc(sizeof(LNode));
+            linkedList = p;
+        }
+        else
+        {
+            linkedList->next = (LNode *)malloc(sizeof(LNode));
+            q = linkedList->next;
+            q = p;
+            linkedList->next = q;
+            q = q->next;
+            
+#pragma mark 怎么把linkedlist转到下一个节点???
+        }
+        //p = p->next;
+        //linkedList = linkedList->next;
         
     }
     
-    printf("%d\n", q->data);	//打印最后一个元素
-    
+    return *linkedList;
 }
-
 
 int main(int argc, char const *argv[])
 {
-	linkedList p = NULL,q = NULL,listToBeCreated = NULL;//linkedList与pqr是同等的事物所有没有星号,p是辅助查找的指针
-    listToBeCreated = (linkedList)malloc(sizeof(linkedList));
-    //listToBeCreated ->next = NULL;
-    
-    
-    for (int i = 1; i <= lengthOfTheCreatingList ; i++)
-    {
-        p = (linkedList)malloc(sizeof(linkedList));//申请了一个元素所占的空间
-        p->data = i;
-        
-//        if (i != lengthOfTheCreatingList-1)//不是要创建尾节点
-//        {
-//            q = (linkedList)malloc(sizeof(linkedList));
-//            listToBeCreated = (linkedList)malloc(sizeof(linkedList));
-//            listToBeCreated->data = p->data;
-//            p->next = NULL;
-//        }
-//        else if (i == lengthOfTheCreatingList)
-//        {
-//            listToBeCreated->next = NULL;
-//        }
-
-        
-        if ( !listToBeCreated->next )//list中的下一个节点未指定时
-        {
-            
-            listToBeCreated->next = p;//居然只改变了next!
-            
-        }
-        
-        else {
-            
-            q->next = p;
-            
-        }
-
-        
-        q = p;//负责寻找的p移到下一个
-        
-    }
-
-    printLink(listToBeCreated);
+    initLinkedList(10);
     return 0;
-    
 }
-
-
