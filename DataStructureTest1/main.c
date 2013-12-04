@@ -1,47 +1,91 @@
+//
+//  main.c
+//  DataStructureTest1
+//
+//  Created by 孙培峰 on 13-11-26.
+//  Copyright (c) 2013年 孙培峰. All rights reserved.
+//
+#define lengthOfTheCreatingList 8
+
 #include <stdio.h>
 #include <stdlib.h>
 
+
+//node为节点
 typedef struct LNode{
     int data;
     struct LNode *next;
-}LNode;
+}LNode, *linkList;//LNode只是对此类的代称,linkedList才是可运用的表
 
-LNode initLinkedList(int lenthOfTheCreatingList)
-{
-    LNode *p = NULL, *q = NULL, *linkedList = NULL;
-    
-    for (int i=1; i <= lenthOfTheCreatingList; i++)
-    {
-        p = (LNode *)malloc(sizeof(LNode));
-        
+//linkedList createLinkedListWithoutHeader(lengthOfTheCreatingList)
+//{
+//    linkedList p,q,r,listToBeCreated = NULL;//linkedList与pqr是同等的事物所有没有星号,p是辅助查找的指针
+//    for (int i = 0; i < lengthOfTheCreatingList ; i++)
+//    {
+//        p = (linkedList)malloc(sizeof(linkedList));//申请了一个元素所占的空间
+//
+//        p->next = NULL;
+//        p->data = i;
+//        if (i != lengthOfTheCreatingList-1 && 0<= i <lengthOfTheCreatingList)//不是要创建尾节点
+//        {
+//            q = (linkedList)malloc(sizeof(linkedList));
+//            listToBeCreated->data = p->data
+//            listToBeCreated->next = q;
+//        }
+//        else if (i == lengthOfTheCreatingList-1)
+//        {
+//            listToBeCreated->next = NULL;
+//        }
+//    }
+//    return listToBeCreated;
+//
+//}
 
-        p->data = i;
-        p->next = NULL;
-        if (i == 1)
-        {
-            linkedList = (LNode *)malloc(sizeof(LNode));
-            linkedList = p;
-        }
-        else
-        {
-            linkedList->next = (LNode *)malloc(sizeof(LNode));
-            q = linkedList->next;
-            q = p;
-            linkedList->next = q;
-            q = q->next;
-            
-#pragma mark 怎么把linkedlist转到下一个节点???
-        }
-        //p = p->next;
-        //linkedList = linkedList->next;
-        
-    }
-    
-    return *linkedList;
-}
+
+
 
 int main(int argc, char const *argv[])
 {
-    initLinkedList(10);
-    return 0;
+    
+        
+        int i;
+        
+        linkList p, r, list;//p和r和list各是一个结构体
+        
+        list = (linkList)malloc(sizeof(LNode));
+        
+        list->next = NULL;//建立了一个只有一个元素的list
+        
+        for ( i = 1; i <= 15; i++ ) {
+            
+            p = (linkList)malloc(sizeof(LNode));//每次循环都为p新分配一个空间,不再影响已被引用过的链表元素位置
+            
+            p->data = i;//指定p内的内容
+            
+            p->next = NULL;//p指向下一个的指针为空
+            
+            if ( !list->next ) {
+                
+                list->next = p;//这里是指针(地址)传递!两处指向的地址是一致的!
+                
+                //在第一次循环中,list的next被指向了刚创建的数据p的位置,在此语句完成赋值
+            }
+            
+            else {
+                
+                r->next = p;//指针传递!两处指向的地址是一致的!
+
+                //第二次循环中,r的next被指向了刚创建的数据p的位置,同时指定了list->next->next的地址,即在此处完成赋值
+                //每次循环中p都是新的,即是在第二次循环中,本语句指出了list->next->next的位置
+            }
+            
+            r = p;	//p的地址传给r,r中含有本次循环赋来的数据,第一次循环时即为list->next的地址传入了r中
+            //上条else语句中p的地址给了r->next,本句中把p的地址给了r而不是它的子节点,相当于把r向下一个节点推进了(待修正)
+        }
+        
+        return 0;
+        
+    
+    
+    
 }

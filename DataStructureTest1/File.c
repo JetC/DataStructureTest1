@@ -399,3 +399,23 @@ int main(int argc, const char * argv[])
     return 0;
     
 }
+/*
+ 
+ 现在我们说
+ 
+ 第一次循环后,地址上r=p=list->next
+ 
+ 
+ 
+ */
+
+
+
+
+
+
+
+
+
+
+
