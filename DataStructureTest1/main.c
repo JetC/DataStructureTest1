@@ -15,25 +15,31 @@
 typedef struct LNode{
     int data;
     struct LNode *next;
-}LNode, *linkList;//LNode只是对此类的代称,linkList才是可方便地用做程序中的
+}LNode, *OneWaylinkList;//LNode只是对此类的代称,linkList才是可方便地用做程序中的
 
 
+typedef struct TWNode{
+    int data;
+    struct TWNode *prev;
+    struct TWNode *next;
+}TWNode, *TwoWayLinkedList;//双向链表
 
-linkList initListWithLength(int lengthOfTheCreatingList)
+
+OneWaylinkList initOneWayListWithLength(int lengthOfTheCreatingList)
 {
     
     
-    linkList p, r, list;//p和r和list各是一个结构体
+    OneWaylinkList p, r, list;//p和r和list各是一个结构体
     //p负责建立新节点,r负责
     
-    list = (linkList)malloc(sizeof(LNode));
+    list = (OneWaylinkList)malloc(sizeof(LNode));
     
     list->next = NULL;//建立了一个只有一个元素的list
     
     for (int i = 1; i <= lengthOfTheCreatingList; i++)
     {
         
-        p = (linkList)malloc(sizeof(LNode));//每次循环都为p新分配一个空间,不再影响已被引用过的链表元素位置
+        p = (OneWaylinkList)malloc(sizeof(LNode));//每次循环都为p新分配一个空间,不再影响已被引用过的链表元素位置
         
         p->data = i;//指定p内的内容
         
@@ -65,15 +71,46 @@ linkList initListWithLength(int lengthOfTheCreatingList)
     free(list);
 }
 
-void printLinkedList(linkList listToBePrinted)
+void initTwoWayListWithLength(int lengthOfTheCreatingList)
 {
-    linkList p = NULL;
+    TwoWayLinkedList p = NULL,r = NULL,q = NULL,list = NULL;
+    int i = 1;
+    
+    for (i = 1; i <= lengthOfTheCreatingList; i++)
+    {
+        p = (TwoWayLinkedList)malloc(sizeof(TwoWayLinkedList));
+        p->data = i;
+        p->next = NULL;
+        p->prev = NULL;
+        if (i == 1)
+        {
+            list = p;
+        }
+        else
+        {
+            p->prev = p;
+            r = p;
+            r->data =
+            r->next =
+            
+        }
+        r = (TwoWayLinkedList)malloc(sizeof(TwoWayLinkedList));
+        p->next = r;//r是下一个节点
+        
+    }
+    
+    
+}
+
+void printLinkedList(OneWaylinkList listToBePrinted)
+{
+    OneWaylinkList p = NULL;
     
     while (listToBePrinted->next)
     {
         
         printf("%i\n",listToBePrinted->data);
-        p = (linkList)malloc(sizeof(linkList));
+        p = (OneWaylinkList)malloc(sizeof(OneWaylinkList));
         p = listToBePrinted->next;
         listToBePrinted = p;
         
@@ -89,7 +126,7 @@ int main(int argc, char const *argv[])
 {
     
     
-    printLinkedList(initListWithLength(90));
+    printLinkedList(initOneWayListWithLength(90000));
     return 0;
     
     
