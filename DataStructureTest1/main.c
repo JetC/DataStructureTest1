@@ -1,137 +1,174 @@
-#include<stdio.h>
-#include<stdlib.h>
+//
+//  main.c
+//  DataStructureTest1
+//
+//  Created by 孙培峰 on 13-11-26.
+//  Copyright (c) 2013年 孙培峰. All rights reserved.
+//
+//#define lengthOfTheCreatingList 8
 
-#define TRUE 1
-#define FALSE 0
+#include <stdio.h>
+#include <stdlib.h>
 
-//定义双向链表
 
-typedef struct DNode
+//node为节点
+typedef struct LNode{
+    int data;
+    struct LNode *next;
+}LNode, *OneWaylinkList;//LNode只是对此类的代称,linkList才是可方便地用做程序中的
+
+
+typedef struct TWNode{
+    int data;
+    struct TWNode *next;
+    struct TWNode *prev;
+}TWNode, *TwoWayLinkedList;//双向链表
+
+
+OneWaylinkList initOneWayListWithLength(int lengthOfTheCreatingList)
 {
-    char data;
-    struct DNode *piror;
-    struct DNode *next;
-}DNode,*Doublelist;
-
-void DInit(Doublelist *L)
-{
-    *L=(DNode *)malloc(sizeof(DNode));
-    (*L)->next=NULL;
-    (*L)->piror=NULL;
-}
-void DCreate(Doublelist L)
-{
-    int i;
-    char c;
-    DNode *p;
-    p=L;
-    //p=(DNode *)malloc(sizeof(DNode));
-    printf("please input the string you want:");
-    while(1)
-    {
-//        c=getchar();
-//        if(c=='$')
-//            break;
-        c = 's';
-        p->data=c;
-        p->next=(DNode *)malloc(sizeof(DNode));
-        p->next->piror=p;//指明前趋与后继的关系
-        p=p->next;
-        //    c=getchar();
-    }
-    printf("创建完成后的链表输出：");
-    //    p->next=q;
-    //    q->piror=p;
-}
-//双向链表的插入操作
-
-int DInsert(Doublelist L,int i,char c)
-{
-    DNode *s=NULL;
-    DNode *p=NULL;
-    int j=0;
-    p=L->next;
-    s=(DNode *)malloc(sizeof(DNode));
-    s->piror=NULL;
-    s->next=NULL;
-    printf("插入后的链表输出:");
     
-    if(s==NULL)
-        exit(1);
-    while(j<i&&p)
+    
+    OneWaylinkList p, r, list;//p和r和list各是一个结构体
+    //p负责建立新节点,r负责
+    
+    list = (OneWaylinkList)malloc(sizeof(LNode));
+    
+    list->next = NULL;//建立了一个只有一个元素的list
+    
+    for (int i = 1; i <= lengthOfTheCreatingList; i++)
     {
-        p=p->next;
-        j++;
-    }
-    if(j==i&&i!=0)
-    {
-        s->data=c;
-        s->piror=p->piror;
-        s->next=p;
-        p->piror->next=s;
-        p->piror=s;
-        return TRUE;
-    }
-    return FALSE;
-}
-//双向链表的删除
-int DDelet(Doublelist L,int i,char c)
-{
-    DNode *p;
-    int j=0;
-    int flag=1;
-    p=L->next;
-    printf("删除后的链表输出:");
-    while(flag)
-    {
-        if(p&&j<i)
+        
+        p = (OneWaylinkList)malloc(sizeof(LNode));//每次循环都为p新分配一个空间,不再影响已被引用过的链表元素位置
+        
+        p->data = i;//指定p内的内容
+        
+        p->next = NULL;//p指向下一个的指针为空
+        
+        if ( !list->next )
         {
-            p=p->next;
-            j++;
+            
+            list->next = p;//这里是指针(地址)传递!两处指向的地址是一致的!
+            
+            //在第一次循环中,list的next被指向了刚创建的数据p的位置,在此语句完成赋值
         }
+        
         else
-            flag=0;
+        {
+            
+            r->next = p;//指针传递!两处指向的地址是一致的!
+            
+            //第二次循环中,r的next被指向了刚创建的数据p的位置,同时指定了list->next->next的地址,即在此处完成赋值
+            //每次循环中p都是新的,即是在第二次循环中,本语句指出了list->next->next的位置
+        }
+        
+        r = p;	//p的地址传给r,r中含有本次循环赋来的数据,第一次循环时即为list->next的地址传入了r中
+        //上条else语句中p的地址给了r->next,本句中把p的地址给了r而不是它的子节点,相当于把r向下一个节点推进了(待修正)
     }
-    if(p&&j==i)
-    {
-        p->piror->next=p->next;
-        p->next->piror=p->piror;
-        free(p);
-        return TRUE;
-    }
-    return FALSE;
+    return list;
+    free(p);
+    free(r);
+    free(list);
+}
+
+TwoWayLinkedList initTwoWayListWithLength(int lengthOfTheCreatingList)
+{
+    TwoWayLinkedList p = NULL, r = NULL, list = NULL,q = NULL;//p和r和list各是一个结构体
+    //p负责建立新节点,r负责
     
-}
-void DPrint(Doublelist L)
-{
-    DNode *p;
-    p=L;
-    while(p)
+    list = (TwoWayLinkedList)malloc(sizeof(TwoWayLinkedList));
+    
+    list->next = NULL;//建立了一个只有一个元素的list
+    
+    for (int i = 1; i <= lengthOfTheCreatingList; i++)
     {
-        printf("%c",p->data);
-        p=p->next;
+        
+        p = (TwoWayLinkedList)malloc(sizeof(TWNode));//每次循环都为p新分配一个空间,不再影响已被引用过的链表元素位置
+#pragma warning (error:123)
+        /* FIXME: xxxx */
+        // MARK: sss
+        /* !!!: ssss */
+
+        //要再熟悉sizeof的用法！
+        p->data = i;//指定p内的内容
+        p->prev = NULL;
+        p->next = NULL;//p指向下一个的指针为空
+        list->prev = NULL;
+        
+        
+        if (i == 1)
+        {
+            
+            list->next = p;//这里是指针(地址)传递!两处指向的地址是一致的!
+            list->prev = NULL;
+            //在第一次循环中,list的next被指向了刚创建的数据p的位置,在此语句完成赋值
+        }
+        
+        else if(i >= 2)
+        {
+#pragma mark !!!NextError!
+            
+            r->prev = q;
+            r->next = p;//指针传递!两处指向的地址是一致的!
+            
+            //第二次循环中,r的next被指向了刚创建的数据p的位置,同时指定了list->next->next的地址,即在此处完成赋值
+            //每次循环中p都是新的,即是在第二次循环中,本语句指出了list->next->next的位置
+        }
+        q = p;  //q负责记录上一个指针的位置
+        r = p;	//p的地址传给r,r中含有本次循环赋来的数据,第一次循环时即为list->next的地址传入了r中
+        //上条else语句中p的地址给了r->next,本句中把p的地址给了r而不是它的子节点,相当于把r向下一个节点推进了(待修正)
     }
-    printf("\n");
+    return list;
 }
-int main()
+
+void printLinkedList(OneWaylinkList listToBePrinted)
 {
-    Doublelist L;
-    char c;
-    int i,k;
-    DInit(&L);
-    DCreate(L);
-    DPrint(L);
-    printf("请输入想插入字符的位置和相插入的字符值：");
-//    scanf("%d %c",&i,&c);
-    i = 0;
-    c = 4;
-    DInsert(L,i,c);
-    DPrint(L);
-    i=0;
-    c=0;
-    printf("请输入想要删除字符的位置和相应的字符值：");
-//    scanf("%d %c",&i,&c);
-    DDelet(L,i,c);
-    DPrint(L);
+    OneWaylinkList p = NULL;
+    
+    while (listToBePrinted->next)
+    {
+        
+        printf("%i\n",listToBePrinted->data);
+        p = (OneWaylinkList)malloc(sizeof(OneWaylinkList));
+        p = listToBePrinted->next;
+        listToBePrinted = p;
+        
+    }
+    
+    printf("%i\n",listToBePrinted->data);
+    
+    free(p);
+}
+
+void printTwoWayLinkedList(TwoWayLinkedList listToBePrinted)
+{
+    TwoWayLinkedList p = NULL;
+    
+    while (listToBePrinted->next)
+    {
+        
+        printf("%i\n",listToBePrinted->data);
+        p = (TwoWayLinkedList)malloc(sizeof(TwoWayLinkedList));
+        p = listToBePrinted->next;
+        listToBePrinted = p;
+        
+    }
+    
+    printf("%i\n",listToBePrinted->data);
+    
+    free(p);
+}
+
+int main(int argc, char const *argv[])
+{
+    
+    
+    //printLinkedList(initOneWayListWithLength(900));
+    printTwoWayLinkedList(initTwoWayListWithLength(900));
+    
     return 0;
+    
+    
+    
+    
 }
