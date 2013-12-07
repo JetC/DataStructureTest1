@@ -73,7 +73,7 @@ OneWaylinkList initOneWayListWithLength(int lengthOfTheCreatingList)
 
 TwoWayLinkedList initTwoWayListWithLength(int lengthOfTheCreatingList)
 {
-    TwoWayLinkedList p = NULL, r = NULL, list = NULL;//p和r和list各是一个结构体
+    TwoWayLinkedList p = NULL, r = NULL, list = NULL,q = NULL;//p和r和list各是一个结构体
     //p负责建立新节点,r负责
     
     list = (TwoWayLinkedList)malloc(sizeof(TwoWayLinkedList));
@@ -99,13 +99,13 @@ TwoWayLinkedList initTwoWayListWithLength(int lengthOfTheCreatingList)
         
         else if(i >= 2)
         {
-            
+            r->prev = q;
             r->next = p;//指针传递!两处指向的地址是一致的!
             
             //第二次循环中,r的next被指向了刚创建的数据p的位置,同时指定了list->next->next的地址,即在此处完成赋值
             //每次循环中p都是新的,即是在第二次循环中,本语句指出了list->next->next的位置
         }
-        
+        q = p;  //q负责记录上一个指针的位置
         r = p;	//p的地址传给r,r中含有本次循环赋来的数据,第一次循环时即为list->next的地址传入了r中
         //上条else语句中p的地址给了r->next,本句中把p的地址给了r而不是它的子节点,相当于把r向下一个节点推进了(待修正)
     }
@@ -156,6 +156,7 @@ int main(int argc, char const *argv[])
     
     //printLinkedList(initOneWayListWithLength(900));
     printTwoWayLinkedList(initTwoWayListWithLength(900));
+
     return 0;
     
     
